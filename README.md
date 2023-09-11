@@ -18,9 +18,15 @@ pip install discord
 
 ### Apagando mensagens antigas
 No modo default, o bot apaga as mensagens que já processou.
+
 ```shell
 python3 main.py <channel_id> <filename>
 ```
+
+```<channel_id>``` - Id do canal obtido no passo 4.
+
+```<filename>``` - Nome do ficheiro único para a cadeira/servidor (O bot mantém um estado de que alunos já estão inscritos e em que grupos)
+
 
 ### Mantendo as mensagens
 Para manter as mensagens enviadas pelos alunos no canal de check-in basta:
