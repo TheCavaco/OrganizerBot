@@ -36,7 +36,7 @@ async def apply_response(user, member, guild, client, resp, stat):
             user: discord.PermissionOverwrite(read_messages=True, send_messages=True, connect=True, speak=True, view_channel=True, stream=True),
             client.user: discord.PermissionOverwrite(read_messages=True, send_messages=True),
         }
-        
+        print("searching stat2:" + str(stat[2]))
         t_channel = discord.utils.get(guild.text_channels, name=stat[2])
         v_channel = discord.utils.get(guild.voice_channels, name=stat[2])
 
@@ -62,7 +62,7 @@ async def apply_response(user, member, guild, client, resp, stat):
 
 
 
-async def get_history_of_channel(channel_id, client, char:str, filename:str):
+async def get_history_of_channel(channel_id, client, char:str, filename:str, dele:bool):
     channel = get_channel(client, channel_id=channel_id)
     if channel == None:
         return
@@ -78,7 +78,7 @@ async def get_history_of_channel(channel_id, client, char:str, filename:str):
             member = guild.get_member(user.id)
             await apply_response(user, member, guild, client, resp, stat)
         messages.append(message)
-    if DELETE:
+    if dele:
         for message in messages:
             await delete_message(channel=channel, msg=message)
 
@@ -104,7 +104,8 @@ def run(argv, token):
         CHANNEL_ID = int(argv[1])
         FILENAME = argv[2]
         if len(argv) > 3:
-            DELETE= True
+            print("not deleting")
+            DELETE= False
     else:
         print("Incorrect run format:")
         print("Correct: python3 main.py <channel_id> <filename> <optional:nodelete>")
@@ -115,7 +116,7 @@ def run(argv, token):
     @bot.event
     async def on_ready():
         print(f'{bot.user} is now ready')
-        await get_history_of_channel(CHANNEL_ID, bot, CHAR, FILENAME)
+        await get_history_of_channel(CHANNEL_ID, bot, CHAR, FILENAME, DELETE)
 
 
     @bot.event
@@ -123,15 +124,15 @@ def run(argv, token):
         print("New message: " + message.content)
         channelIDsToListen = [ CHANNEL_ID ] # put the channels that you want to listen to here
 
-        if message.channel.id in channelIDsToListen:
+        #if message.channel.id in channelIDsToListen:
 
-            if message.content != "" and message.author != bot.user:
-                user = message.author
-                resp, stat = responses.handle_response(message.content, CHAR, FILENAME)
-                member = message.channel.guild.get_member(user.id)
-                await apply_response(user, member, message.channel.guild, bot, resp, stat)
-                await delete_message(channel=message.channel, msg=message)
-                pass
+            #if message.content != "" and message.author != bot.user:
+                #user = message.author
+                #resp, stat = responses.handle_response(message.content, CHAR, FILENAME)
+                #member = message.channel.guild.get_member(user.id)
+                #await apply_response(user, member, message.channel.guild, bot, resp, stat)
+                #await delete_message(channel=message.channel, msg=message)
+                #pass
 
             
 
