@@ -35,7 +35,3 @@ python3 main.py <channel_id> <filename> nod
 ```
 
 ***É IMPORTANTE NÃO CORRER O BOT COM DIFERENTES FILENAMES PARA A MESMA CADEIRA***
-
-
-## Adicionalmente
-O bot, se deixado a correr, vai automaticamente analisar todas as novas mensagens que forem enviadas para o canal de texto pretendido.
