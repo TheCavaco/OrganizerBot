@@ -41,6 +41,7 @@ async def apply_response(user, member, guild, client, resp, stat):
         v_channel = discord.utils.get(guild.voice_channels, name=stat[2])
 
         if t_channel:
+            print("Found " + stat[2])
             await t_channel.set_permissions(member, read_messages=True, send_messages=True)
         else:
             await guild.create_text_channel(stat[2], overwrites=overwrites)

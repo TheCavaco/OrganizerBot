@@ -1,3 +1,5 @@
+import os
+
 
 def checkNum(num:str):
     try:
@@ -8,8 +10,12 @@ def checkNum(num:str):
 
 def create_file(filename:str):
     try:
-        with open(filename, "w"):
-            pass
+        if not os.path.exists(filename):
+            # If it doesn't exist, create and write to the file
+            with open(filename, 'w') as file:
+                file.write("This is a new file.")
+        else:
+            print("file already exists")
     except IOError as e:
         print(f"An error occurred: {e}")
 
@@ -53,7 +59,7 @@ def handle_response(message:str, token, filename: str):
 
     with open(filename, 'r') as file:
         lines = file.readlines()
-
+        print(str(lines))
         for line_number, line in enumerate(lines, start=0):
             sp = line.split(";")
             if sp[0] == number:
@@ -61,8 +67,9 @@ def handle_response(message:str, token, filename: str):
             elif sp[1] == group:
                 current = "ADD"
 
-
+    
     with open(filename, 'a') as file:
+        print("Writing: " + data)
         file.write(data)
 
 
